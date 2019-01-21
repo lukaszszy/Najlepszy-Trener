@@ -277,12 +277,48 @@ xhr2.onload = function() {
     var placesContent = '<table>';
     for(var w=0; w<responseObject2[0].tr_pl.length; w++){
         placesContent += '<tr class="placeRow"><td><b>'+responseObject2[0].tr_pl[w].place+'</b></td>';
-        placesContent += '<td style="text-align:center;"><a>Usuń</a></td></tr>';
+        placesContent += '<td style="text-align:center;"><a style="cursor:pointer;text-decoration:none;" id="deleteTraining-'+responseObject2[0].tr_pl[w].id+'">Usuń</a></td></tr>';
 
     }
     placesContent += '</table>';
     containerPlaces.innerHTML = placesContent
 
+    for(var x=0; x<responseObject2[0].tr_pl.length; x++){
+        document.getElementById('deleteTraining-'+responseObject2[0].tr_pl[x].id).addEventListener('click',function(e) {
+            let idSplit2 = event.target.id.split("-");
+            var splited = idSplit2[1];
+            $.confirm({
+                boxWidth: '30%',
+                useBootstrap: false,
+                title: 'Usuwanie',
+                content: 'Czy na pewno chcesz usunąć lokalizację ?',
+                buttons: {
+                    usuń: {
+                        btnClass: 'btn-blue',
+                        action: function () {
+                        var t = e.target;
+                        $.ajax({
+                            data: {
+                                "_token": $('#token').val()
+                                },
+                            method: "POST",
+                            url: "/destroyTrainersPlace/"+ splited,
+                            }).done(function( msg ) {
+                            if(msg.error == 0){
+                                window.location.reload()
+                            }else{
+                                window.location.reload()
+                            }
+                        });
+                    }},
+                    cofnij: function () {
+                    }
+                }
+            })
+    
+    }
+    ,false );
+    }
 
 
 
