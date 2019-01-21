@@ -95,7 +95,7 @@
                                 <p>
                                     <label>
                                         Nazwisko:
-                                        <input class="edit-lastname" form="editPrimaryInfo" name='surname' type='text' placeholder='{{ Auth::user()->surname }}' value='{{ Auth::user()->surname }}' pattern="^[A-ZĄĘŹŻŚÓĆNŁ][a-ząęźżśóćńł]{2,14}$" title="Pierwsza litera wielka, maksymalnie 15 liter" maxlength="3" maxlength="15">
+                                        <input class="edit-lastname" form="editPrimaryInfo" name='surname' type='text' placeholder='{{ Auth::user()->surname }}' value='{{ Auth::user()->surname }}' pattern="^[A-ZĄĘŹŻŚÓĆNŁ][a-ząęźżśóćńł]{2,14}$" title="Pierwsza litera wielka, maksymalnie 15 liter" minlength="3" maxlength="15">
 
                                     </label>
                                 </p>
@@ -229,23 +229,25 @@
                                         Nazwa placówki:
                                         <input placeholder="Podaj nazwę placówki" class="edit-place" form="addCourse"
                                                name='place' type="text" pattern=".{3,}" required
-                                               title="Wprowadź co najmniej 3 znaki.">
+                                               title="Wprowadź co najmniej 3 znaki."
+                                               minlength="3" maxlength="45">
                                     </p>
                                     <p style="display: inline-block;">
                                         Nazwa kursu:
                                         <input placeholder="Podaj nazwę kursu" class="edit-course" form="addCourse"
                                                name='name' type="text" pattern=".{3,}"
-                                               title="Wprowadź co najmniej 3 znaki.">
+                                               title="Wprowadź co najmniej 3 znaki."
+                                               minlength="3" maxlength="45">
                                     </p>
                                     <p style="display:inline-block">
                                         Data rozpoczęcia:
                                         <input class="edit-startdate" form="addCourse" name='begin_date' type="date"
-                                               max="2018-12-31" min="1900-01-01">
+                                               max="2019-12-31" min="1900-01-01">
                                     </p>
                                     <p style="margin-left:20px; display:inline-block;">
                                         Data zakończenia:
                                         <input class="edit-enddate" form="addCourse" name='end_date' type="date"
-                                               max="2018-12-31" min="1900-01-01">
+                                               max="2019-12-31" min="1900-01-01">
                                     </p>
                                     <p>
                                         Dodaj załącznik
@@ -317,16 +319,20 @@
                                             Nazwa zajęć:
                                             <input class="edit-lessons" form="addTrainerOffer" name='classes_name'
                                                    type="text" pattern=".{3,}" required
-                                                   title="Wprowadź co najmniej 3 znaki.">
+                                                   title="Wprowadź co najmniej 3 znaki."
+                                                   minlength="3" maxlength="40">
                                         </p>
                                         <p style="display:inline-block">
                                             Maksymalna liczba uczestników:
                                             <input class="edit-patric" form="addTrainerOffer" name='numbers_of_members'
-                                                   type="number" min='1' max='20' required>
+                                                   type="number" 
+                                                   pattern="[0-9]+"
+                                                   min='1' max='20' required>
                                         </p>
                                         <p style="margin-left:20px; display:inline-block;">
                                             Cena:
                                             <input class="edit-price" form="addTrainerOffer" name='price' type="number"
+                                            min='1.00' max='350.00'
                                                    step="0.01">
                                         </p>
                                         <input form="addTrainerOffer" type='hidden' name='id'
