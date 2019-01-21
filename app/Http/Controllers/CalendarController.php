@@ -87,17 +87,16 @@ class CalendarController extends Controller
 
     protected function deleteTraining($id)
     {
-
-        /*$trTraining = TrTraining::findOrFail($id);
+        $trTraining = TrTraining::findOrFail($id);
         if ($trTraining->actual_client_number > 0)
         {  
-            return ("Nie można usunąć treningu.");
+            return ("Nie można usunąć treningu");
         }
         else 
         {
-        $trTraining->destroy();
-            */
-        return redirect('/profiles/6');
+            $trTraining->delete();
+            return redirect('/editProfile');
+        }
 
     }
 

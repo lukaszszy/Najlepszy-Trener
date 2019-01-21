@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class TrTraining extends Model
 {
     protected $table = 'trainers_trainings_dates';
-    protected $fillable = ['trainer_id','name', 'date', 'begin_time', 'end_time', 'status', 'place', 'price', 'client_limit', 'actual_client_number', 'description'];
+    protected $fillable = ['trainer_id','name', 'date', 'begin_time', 'end_time', 'status', 'place', 'price', 'client_limit', 'actual_client_number', 'description', 'updated_at', 'created_at'];
     protected $appends = ['full_begin_date', 'full_end_date'];
 
     public function trainer(){
