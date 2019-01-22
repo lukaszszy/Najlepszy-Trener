@@ -415,7 +415,9 @@ xhr2.onload = function() {
        for(var i = 0; i<responseObject2[0].tr_off.length; i++){
           offers += '<div id="single-ofert'+responseObject2[0].tr_off[i].id+'"><i class="fas fa-shopping-bag edit-icon"></i>'
           offers +=  "<div class='single-ofert'><div>";
-          offers +=  responseObject2[0].tr_off[i].name+"</br><div style='font-size: 13px;'> "+ responseObject2[0].tr_off[i].price+"zł </br> ";
+          offers +=  responseObject2[0].tr_off[i].name+"</br><div style='font-size: 13px;'> ";
+          if(responseObject2[0].tr_off[i].price){offers +=  responseObject2[0].tr_off[i].price+"zł </br> ";}
+          else{offers +=  "Brak danych </br> ";}
           offers +=  "Maks. liczba klientów: "+responseObject2[0].tr_off[i].max_no_of_clients+ "</div></div>";
           offers +=  "<div class='edit-delete-section'>";
           offers +=  "<span class='pointer' id='single-ofert-"+responseObject2[0].tr_off[i].id+"'>Edytuj</span>";
@@ -504,8 +506,16 @@ xhr2.onload = function() {
        unis += '<div id="single-uni'+responseObject2[0].tr_uni[i].id+'"><i class="fas fa-graduation-cap edit-icon-uni"></i>'
        unis +=  "<div class='single-uni' ><div>";
        unis +=  responseObject2[0].tr_uni[i].university+"<br><div style='font-size: 13px;'>"+ responseObject2[0].tr_uni[i].course+" - ";
-       unis +=  responseObject2[0].tr_uni[i].degree+"</br> "+responseObject2[0].tr_uni[i].begin_date;
-       unis += " - "+responseObject2[0].tr_uni[i].end_date+"</div></div><div class='edit-delete-section'><span class='pointer' id='single-uni-"+responseObject2[0].tr_uni[i].id+"'>Edytuj</span></br><span id='uni"+responseObject2[0].tr_uni[i].id+"'>Usuń</span></div></div>";
+       if(responseObject2[0].tr_uni[i].degree){unis +=  responseObject2[0].tr_uni[i].degree+"</br> ";}
+        else{unis +=  "Brak danych </br> "; }
+       if(responseObject2[0].tr_uni[i].begin_date){
+         unis+=responseObject2[0].tr_uni[i].begin_date;
+       }
+       else{ unis+="Brak danych ";}
+       if(responseObject2[0].tr_uni[i].end_date){ unis += " - "+responseObject2[0].tr_uni[i].end_date+"</div></div>" }
+        else{ unis += " - Brak danych</div></div>"}
+       
+       unis +="<div class='edit-delete-section'><span class='pointer' id='single-uni-"+responseObject2[0].tr_uni[i].id+"'>Edytuj</span></br><span id='uni"+responseObject2[0].tr_uni[i].id+"'>Usuń</span></div></div>";
        unis += "</div><div class='edit-single-uni' id='edit-single-uni-"+responseObject2[0].tr_uni[i].id;
        unis += "'><form  action='editUni' method='POST'>";
        unis += "<p><label>Nazwa uczelni: <input value='"+responseObject2[0].tr_uni[i].university+"' class='edit-uni' type='text' name='university' pattern='.{3,}' required title='Wprowadź co najmniej 3 znaki.'></label></p>";
@@ -817,8 +827,11 @@ for(var i = 0; i<responseObject2[0].tr_cert.length; i++){
     cers += '<div id="single-cer'+responseObject2[0].tr_cert[i].id+'"><i class="far fa-file-alt edit-icon" ></i>'
     cers +=  "<div class='single-cer single-cer-count'><div>";
     cers +=  responseObject2[0].tr_cert[i].name_of_institution+"</br><div style='font-size: 13px;'>"+ responseObject2[0].tr_cert[i].name_of_course;
-    cers +=  "</br>"+responseObject2[0].tr_cert[i].begin_date;
-    cers += " - "+responseObject2[0].tr_cert[i].end_date+"</div></div><div class='edit-delete-section'>"
+    if(responseObject2[0].tr_cert[i].begin_date){cers +=  "</br>"+responseObject2[0].tr_cert[i].begin_date;}
+    else{cers +=  "</br>Brak danych"}
+    if(responseObject2[0].tr_cert[i].end_date){ cers += " - "+responseObject2[0].tr_cert[i].end_date+"</div></div><div class='edit-delete-section'>"}
+    else{ cers += " - Brak danych</div></div><div class='edit-delete-section'>"}
+   
     cers += "<span class='pointer' id='single-cer-"+responseObject2[0].tr_cert[i].id+"'>Edytuj</span></br><span class='pointer' id='cer"+responseObject2[0].tr_cert[i].id+"'>Usuń</span></div></div>";
     cers += "</div><div class='edit-single-cer' id='edit-single-cer-"+responseObject2[0].tr_cert[i].id;
     cers += "'><form  action='editCourse' enctype='multipart/form-data' method='POST'>";

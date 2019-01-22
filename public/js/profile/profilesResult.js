@@ -134,7 +134,7 @@ $( function() {
     range: true,
     min: 0,
     max: 350,
-    values: [ 50, 150 ],
+    values: [ 0, 350 ],
     slide: function( event, ui ) {
       $( "#amount" ).val("Cena:   " + ui.values[ 0 ]+"zł" + " - " + ui.values[ 1 ]+"zł" );
     }
@@ -148,7 +148,7 @@ $( function() {
     range: true,
     min: 0,
     max: 99,
-    values: [ 10, 50 ],
+    values: [ 0, 99 ],
     slide: function( event, ui ) {
       $( "#age" ).val("Wiek:   " + ui.values[ 0 ]+" lat" + " - " + ui.values[ 1 ]+" lat" );
     }
@@ -164,12 +164,12 @@ clearButton = document.getElementById('clearAll');
 clearButton.addEventListener('click',clearFilter)
 
 function clearFilter(){
-  document.getElementById('age').value = "Wiek:   " +10+" lat" + " - " +50+" lat";
-  $( "#age-slider-range" ).slider( "values", 0, 10 );
-  $( "#age-slider-range" ).slider( "values", 1, 50 );
-  document.getElementById('amount').value = "Cena:   " +50+"zł" + " - " +150+"zł";
-  $( "#slider-range" ).slider( "values", 0, 50);
-  $( "#slider-range" ).slider( "values", 1, 150 );
+  document.getElementById('age').value = "Wiek:   " +0+" lat" + " - " +99+" lat";
+  $( "#age-slider-range" ).slider( "values", 0, 0 );
+  $( "#age-slider-range" ).slider( "values", 1, 99 );
+  document.getElementById('amount').value = "Cena:   " +0+"zł" + " - " +350+"zł";
+  $( "#slider-range" ).slider( "values", 0, 0);
+  $( "#slider-range" ).slider( "values", 1, 350 );
   document.getElementById('training-place').value = 'Miejsce';
   document.getElementById('trainer-sex').value = 'Płeć';
   document.getElementById('city-search-results').value = capitalizeFirstLetter(n[n.length - 1]);
@@ -189,10 +189,22 @@ document.getElementById('filter-button').addEventListener('click', function(){
   let city = document.getElementById('city-search-results').value;
   let place = document.getElementById('training-place').value;
   let ageMin = $( "#age-slider-range" ).slider( "values", 0 );
+  if(ageMin === 0){
+    ageMin = ''
+  }
   let ageMax = $( "#age-slider-range" ).slider( "values", 1 );
+  if(ageMax === 99){
+    ageMax = ''
+  }
   let sex = document.getElementById('trainer-sex').value;
   let priceMin = $( "#slider-range" ).slider( "values", 0 );
+  if(priceMin === 0){
+    priceMin = ''
+  }
   let priceMax = $( "#slider-range" ).slider( "values", 1 );
+  if(priceMax === 350){
+    priceMax = ''
+  }
 
   var project = document.querySelector('#trainers-container');
   project.style.opacity = 0;

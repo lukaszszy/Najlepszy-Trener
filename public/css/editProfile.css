@@ -96,8 +96,7 @@ fieldset{
     width: 250px;
     border-radius: 2px;
     border: 1.5px solid #dfdede;
-    height: 20px;
-    padding: 11px 15px 11px 5px;
+    height: 24px;
 }
 .edit-phone{
     margin-left: 95px;
@@ -183,8 +182,7 @@ fieldset{
 .edit-startdate{
     border-radius: 2px;
     border: 1.5px solid #dfdede;
-    height: 20px;
-    padding: 11px 15px 11px 5px;
+    height: 24px;
     margin-left: 24px;
     display: inline-block;
     width:157px;
@@ -192,8 +190,7 @@ fieldset{
 .edit-startdate-loc{
     border-radius: 2px;
     border: 1.5px solid #dfdede;
-    height: 20px;
-    padding: 11px 15px 11px 5px;
+    height: 24px;
     margin-left: 94px;
     display: inline-block;
     width:157px;
@@ -218,9 +215,8 @@ fieldset{
 .edit-enddate{
     border-radius: 2px;
     border: 1.5px solid #dfdede;
-    height: 20px;
+    height: 24px;
     width:156px;
-    padding: 11px 15px 11px 5px;;
     margin-left: 25px;
     display: inline-block;
 }
