@@ -160,12 +160,24 @@ class CalendarController extends Controller
                 $training->save();
                 
                 $trainer_mail = Trainer::find($training->trainer_id)->email;
+
+
+                $data  = array( 'email' => $request['email'],
+                        'date'  => $training->date,
+                        'begin_time' => $training->begin_time,
+                        'end_time' => $training->end_time,
+                        'name'  => $training->name,
+                        'place' => $training->place,
+                        'price' => $training->price,
+                        'description' => $training->description,
+                        'delete_token' => $delete_token,
+                        'training_id' => $training->id);
                 
                 // Wysłanie maila do klienta
-                app('App\Http\Controllers\MailController')->calendar_register_client_email($training, $request, $delete_token);
+                app('App\Http\Controllers\MailController')->calendar_register_client_email($data);
 
                 // Wysłanie maila do trenera
-                app('App\Http\Controllers\MailController')->calendar_register_trainer_email($training, $request, $trainer_mail);
+                app('App\Http\Controllers\MailController')->calendar_register_trainer_email($data, $trainer_mail);
 
                 return redirect('/profiles/'.$training->trainer_id);
             }
@@ -174,9 +186,10 @@ class CalendarController extends Controller
     }
 
 
-    protected function deleteOrder($id)
+    protected function deleteOrder(Request $request)
     {
-        $parameters = request()->only(['delete_token']);
+        $parameters = request()->only(['delete_token','id']);
+        $id = request()->get('id');
         $delete_token = request()->get('delete_token');
 
         $orderedTraining = TrOrderedTrainings::findOrFail($id);
@@ -191,13 +204,12 @@ class CalendarController extends Controller
             if( $training->client_limit > $training->actual_client_number) $training->status = "wolne";
             $training->save();
 
-            // Wysłanie maila do klienta
-            app('App\Http\Controllers\MailController')->calendar_resignation_client_email($training, $orderedTraining);
-
             // Wysłanie maila do trenera
             app('App\Http\Controllers\MailController')->calendar_resignation_trainer_email($training, $orderedTraining);
 
             $orderedTraining->delete();
+
+            return ("Rejestracja z treningu została anulowana.");
         }
 
     }

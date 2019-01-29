@@ -89,7 +89,7 @@ Route::post('deleteOldTrainings', ['uses' =>'CalendarController@deleteOldTrainin
 
 Route::post('/profiles/orderTraining', ['uses' =>'CalendarController@orderTraining']);
 
-Route::post('deleteOrder/{id}', ['uses' =>'CalendarController@deleteOrder']);
+Route::get('deleteOrder', ['uses' =>'CalendarController@deleteOrder']);
 
 
 // Update email and password

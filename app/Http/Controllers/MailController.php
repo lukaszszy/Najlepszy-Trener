@@ -40,22 +40,8 @@ class MailController extends Controller
         return ("HTML Email Sent. Check your inbox.");
    }
 
-   public function calendar_register_client_email($training, Request $request, $delete_token)
+   public function calendar_register_client_email($data)
    {    
-        $data  = array( 'email' => $request['email'],
-                        'date'  => $training->date,
-                        'begin_time' => $training->begin_time,
-                        'end_time' => $training->end_time,
-                        'type'  => $training->type,
-                        'place' => $training->place,
-                        'price' => $training->price,
-                        'description' => $training->description,
-                        'delete_token' => $delete_token,
-                        'training_id' => $training->id,
-                        'name' => $request['name'],
-                        'surname' => $request['surname'],
-                        'phone' => $request['phone'],
-                        'comment' => $request['comment']);
 
         Mail::send('calendar_register_client_mail', $data, function($message) use ($data)
         {
@@ -65,27 +51,12 @@ class MailController extends Controller
         return ("HTML Email Sent. Check your inbox.");
    }
 
-   public function calendar_register_trainer_email($training, Request $request, $trainer_mail)
+   public function calendar_register_trainer_email($data, $trainer_mail)
    {    
-        $data  = array( 'trainer_email' => $trainer_mail,
-                        'email' => $request['email'],
-                        'date'  => $training->date,
-                        'begin_time' => $training->begin_time,
-                        'end_time' => $training->end_time,
-                        'type'  => $training->type,
-                        'place' => $training->place,
-                        'price' => $training->price,
-                        'description' => $training->description,
-                        'delete_token' => $training->delete_token,
-                        'training_id' => $training->id,
-                        'name' => $request['name'],
-                        'surname' => $request['surname'],
-                        'phone' => $request['phone'],
-                        'comment' => $request['comment']);
 
-        Mail::send('calendar_register_trainer_mail', $data, function($message) use ($data)
+        Mail::send('calendar_register_trainer_mail', $data, function($message) use ($data, $trainer_mail)
         {   // Zmienic adresata na trenera
-            $message->to($data['trainer_email'])->subject('Rejestracja na trening');
+            $message->to($trainer_mail)->subject('Rejestracja na trening');
         });
 
         return ("HTML Email Sent. Check your inbox.");
