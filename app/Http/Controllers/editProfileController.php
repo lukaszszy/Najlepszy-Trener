@@ -22,7 +22,10 @@ class editProfileController extends Controller
     protected function updatePrimaryInfo(Request $request)
     {
 
-        $trainer = Trainer::findOrFail(Auth::user()->id);
+        if ($request['trainer_id'] == '') $trainer_id = Auth::user()->id;  
+        else $trainer_id = $request['trainer_id'];
+
+        $trainer = Trainer::findOrFail($trainer_id);
 
         if ($request['name'] == '') $trainer->name = NULL;  
         else $trainer->name = $request['name'];
